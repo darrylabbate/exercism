@@ -9,12 +9,12 @@ data Address = Question
              | Normal
 
 classify :: String -> Address
-classify a | all isSpace a = Silence
+classify a | all isSpace a    = Silence
            | yell && question = YellQuestion
-           | yell = Yell
-           | question = Question
-           | otherwise = Normal
-           where yell = any isAlpha a && all isUpper (filter isAlpha a)
+           | yell             = Yell
+           | question         = Question
+           | otherwise        = Normal
+           where yell     = any isAlpha a && all isUpper (filter isAlpha a)
                  question = '?' == last (filter (not . isSpace) a)
 
 response :: Address -> String
