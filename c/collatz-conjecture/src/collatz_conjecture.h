@@ -4,6 +4,5 @@
 #define ERROR_VALUE -1
 
 int steps(int start);
-int collatz(int step, int n);
 
 #endif
