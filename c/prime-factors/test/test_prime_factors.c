@@ -21,6 +21,7 @@ void test_no_factors(void)
 
 void test_prime_number(void)
 {
+   TEST_IGNORE();               // delete this line to run test
    uint64_t expected_factors[] = { 2 };
    size_t expected_len = 1;
    size_t actual_len = find_factors(2, buf);
@@ -30,6 +31,7 @@ void test_prime_number(void)
 
 void test_square_of_a_prime(void)
 {
+   TEST_IGNORE();
    uint64_t expected_factors[] = { 3, 3 };
    size_t expected_len = 2;
    size_t actual_len = find_factors(9, buf);
@@ -39,6 +41,7 @@ void test_square_of_a_prime(void)
 
 void test_cube_of_a_prime(void)
 {
+   TEST_IGNORE();
    uint64_t expected_factors[] = { 2, 2, 2 };
    size_t expected_len = 3;
    size_t actual_len = find_factors(8, buf);
@@ -48,6 +51,7 @@ void test_cube_of_a_prime(void)
 
 void test_product_of_primes_and_non_primes(void)
 {
+   TEST_IGNORE();
    uint64_t expected_factors[] = { 2, 2, 3 };
    size_t expected_len = 3;
    size_t actual_len = find_factors(12, buf);
@@ -57,6 +61,7 @@ void test_product_of_primes_and_non_primes(void)
 
 void test_product_of_primes(void)
 {
+   TEST_IGNORE();
    uint64_t expected_factors[] = { 5, 17, 23, 461 };
    size_t expected_len = 4;
    size_t actual_len = find_factors(901255, buf);
@@ -66,6 +71,7 @@ void test_product_of_primes(void)
 
 void test_factors_include_a_large_prime(void)
 {
+   TEST_IGNORE();
    uint64_t expected_factors[] = { 11, 9539, 894119 };
    size_t expected_len = 3;
    size_t actual_len = find_factors(93819012551, buf);
@@ -85,6 +91,5 @@ int main(void)
    RUN_TEST(test_product_of_primes);
    RUN_TEST(test_factors_include_a_large_prime);
 
-   UnityEnd();
-   return 0;
+   return UnityEnd();
 }
