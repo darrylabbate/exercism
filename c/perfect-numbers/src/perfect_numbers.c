@@ -1,28 +1,16 @@
 #include "perfect_numbers.h"
+#include <stdint.h>
 
-static int aliquot_sum(int n)
+static int aliquot_sum(int n, int i, uint64_t r)
 {
-  if(n == 1)
-    return 0;
-  int r = 1;
-  int i;
-  for(i=2; i*i<n; i++)
-    if((n % i) == 0)
-      r += i + (n / i);
-  return r + (i * i == n ? i : 0);
+  if (n == 1) return 0;
+
+  return i * i < n ? aliquot_sum(n, i + 1, (n % i) == 0 ? r += i + (n / i) : r) : r;
 }
 
 kind classify_number(int n)
 {
-  kind class = ERROR;
-  if(n > 0) {
-    int sum = aliquot_sum(n);
-    if(sum > n)
-      class = ABUNDANT_NUMBER;
-    else if(sum < n)
-      class = DEFICIENT_NUMBER;
-    else
-      class = PERFECT_NUMBER;
-  }
-  return class;
+  if (n <= 0) return ERROR;
+
+  return aliquot_sum(n, 2, 1) > n ? ABUNDANT_NUMBER : aliquot_sum(n, 2, 1) < n ? DEFICIENT_NUMBER : PERFECT_NUMBER;
 }
