@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include <math.h>
 
 #define MAXFACTORS 10
 
