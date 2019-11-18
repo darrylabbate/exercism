@@ -7,9 +7,11 @@ int compute(const char *lhs, const char *rhs) {
         return -1;
 
     int distance = 0;
-    int l = (int)strlen(lhs);
-    for(int i=0; i<l; i++)
+    int length   = (int) strlen(lhs);
+
+    for(int i = 0; i < length; i++)
         if(lhs[i] != rhs[i])
             distance++;
+
     return distance;
 }
