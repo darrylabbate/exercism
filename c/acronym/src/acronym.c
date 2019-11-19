@@ -15,8 +15,8 @@ char *abbreviate(const char *phrase) {
 
     while (*phrase) {
         switch (*phrase++) {
-        case ' ': a[i++] = toupper(*phrase++); break;
-        case '-': a[i++] = toupper(*phrase++); break;
+        case ' ': a[i++] = toupper(*phrase); break;
+        case '-': a[i++] = toupper(*phrase); break;
         default: break;
         }
     }
