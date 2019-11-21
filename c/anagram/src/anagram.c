@@ -13,8 +13,8 @@ static int eval(char *a, char *b) {
     if (strlen(a) != strlen(b))
         return 0;
 
-    char *a_upper = calloc(1, strlen(a));
-    char *b_upper = calloc(1, strlen(b));
+    char *a_upper = calloc(1, strlen(a) + 1);
+    char *b_upper = calloc(1, strlen(b) + 1);
 
     int i = 0;
     while (*a)
@@ -27,21 +27,21 @@ static int eval(char *a, char *b) {
     a = a_upper;
     b = b_upper;
 
-    if (!memcmp(a, b, strlen(a)))
+    if (!strcmp(a, b))
         return 0;
 
     qsort(a, strlen(a), sizeof(char), cmpstr);
     qsort(b, strlen(b), sizeof(char), cmpstr);
 
-    return !memcmp(a, b, strlen(a));
+    return !strcmp(a, b);
 }
 
 void anagrams_for(const char *word, struct candidates *candidates) {
-    char *a = calloc(1, strlen(word));
+    char *a = calloc(1, strlen(word) + 1);
     strcpy(a, word);
     for (size_t i = 0; i < candidates->count; i++) {
         if (CAND.is_anagram == UNCHECKED) {
-            char *b = calloc(1, strlen(CAND.candidate));
+            char *b = calloc(1, strlen(CAND.candidate) + 1);
             strcpy(b, CAND.candidate);
             CAND.is_anagram = eval(a, b);
         }
