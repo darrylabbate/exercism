@@ -1,6 +1,5 @@
 #include "beer_song.h"
 #include <stdio.h>
-#include <string.h>
 
 #define ZERO_VERSE "No more bottles of beer on the wall, no more bottles of beer.\n"\
                    "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
@@ -24,7 +23,7 @@ void sing(char *buffer, unsigned int s, unsigned int e) {
     while (s > e) {
         verse(p, s--);
         while (*p) ++p;
-        strcpy(p++, "\n");
+        sprintf(p++, "\n");
     }
     verse(p, s);
 }
