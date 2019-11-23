@@ -8,7 +8,7 @@
 static bool iter(int i, uint32_t u, const char *sentence) {
     if (isalpha(sentence[i])) {
         uint32_t l = 1 << (toupper(sentence[i]) - 'A');
-        return eval(u | l) ? true : iter(++i, u |= l, sentence);
+        return eval(u | l) ? true : iter(++i, u | l, sentence);
     }
     return sentence[i] == '\0' ? eval(u) : iter(++i, u, sentence);
 }
