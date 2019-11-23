@@ -1,18 +1,15 @@
 #include "meetup.h"
 #include <string.h>
 
-static int is_leap_year(int year) {
-    return !(year % 4) && ((year % 100) || !(year % 400));
-}
-
 static int parse_day(const char *day) {
-    if      (!strcmp(day, "Sunday"))    return 0;
-    else if (!strcmp(day, "Monday"))    return 1;
-    else if (!strcmp(day, "Tuesday"))   return 2;
-    else if (!strcmp(day, "Wednesday")) return 3;
-    else if (!strcmp(day, "Thursday"))  return 4;
-    else if (!strcmp(day, "Friday"))    return 5;
-    else if (!strcmp(day, "Saturday"))  return 6;
+    if      (!strcmp(day, "Saturday"))  return 0;
+    else if (!strcmp(day, "Sunday"))    return 1;
+    else if (!strcmp(day, "Monday"))    return 2;
+    else if (!strcmp(day, "Tuesday"))   return 3;
+    else if (!strcmp(day, "Wednesday")) return 4;
+    else if (!strcmp(day, "Thursday"))  return 5;
+    else if (!strcmp(day, "Friday"))    return 6;
+    else return -1;
 }
 
 static int parse_week(const char *week) {
@@ -23,18 +20,28 @@ static int parse_week(const char *week) {
     else if (!strcmp(week, "fifth"))  return 4;
     else if (!strcmp(week, "teenth")) return 5;
     else if (!strcmp(week, "last"))   return 6;
+    else return -1;
 }
 
 static int max_days(int m, int y) {
-    int days[] = {31, 28 + is_leap_year(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    return days[m-1];
+    int l      = !(y % 4) && ((y % 100) || !(y % 400));
+    int feb    = 28 + l;
+    int days[] = {31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    return days[m - 1];
 }
 
-static int offset() {
+static int zeller(int y, int m, int h, int q) {
+    return h == (q + ((13 * (m+1)) / 5) + y + (y/4) - (y/100) + (y/400)) % 7;
 }
 
 static int calc_day(int y, int m, int d, int i, int j) {
-    if ((i > j) || (max_days(m, y) < j)) return 0;
+    if (m < 3) { 
+        m += 12;
+        y -= 1;
+    }
+    for (; i <= j; i++)
+        if (zeller(y, m, d, i)) return i;
+    return 0;
 }
 
 int meetup_day_of_month(unsigned int  year,
@@ -53,5 +60,6 @@ int meetup_day_of_month(unsigned int  year,
     case 4: return calc_day(year, month, day, 29, max);
     case 5: return calc_day(year, month, day, 13, 19);
     case 6: return calc_day(year, month, day, max-6, max);
+    default: return 0;
     }
 }
