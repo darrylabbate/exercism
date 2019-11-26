@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 typedef struct {
-    int16_t n, d;
+    int16_t numerator, denominator;
 } rational_t;
 
 rational_t add(rational_t r1, rational_t r2);
