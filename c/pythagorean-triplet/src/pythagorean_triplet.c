@@ -15,7 +15,7 @@ static triplets_t *add_triplet(triplets_t *t, uint16_t a, uint16_t b, uint16_t c
 }
 
 triplets_t *triplets_with_sum(uint16_t sum) {
-    triplets_t *t = malloc(sizeof(triplets_t));
+    triplets_t *t = calloc(1, sizeof(triplets_t));
     t->count = 0;
     for (uint16_t a = 1; a < sum / 3; a++) {
         for (uint16_t b = a; b < sum / 2; b++) {
